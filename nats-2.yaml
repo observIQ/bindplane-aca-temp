@@ -26,8 +26,6 @@ properties:
             value: node
           - name: BINDPLANE_LOGGING_OUTPUT
             value: stdout
-          - name: BINDPLANE_CONFIG_HOME
-            value: /data
           - name: BINDPLANE_LOGGING_LEVEL
             value: debug
           - name: BINDPLANE_ANALYTICS_DISABLED
@@ -66,20 +64,15 @@ properties:
             value: prometheus
           - name: BINDPLANE_METRICS_PROMETHEUS_ENDPOINT
             value: /metrics
+
+          # Bindplane's bbolt store is used to remove
+          # its reliance on PostgreSQL. The NATS server
+          # component does not read and and write to the
+          # storage. It is unnecessary to use shared storage.
+          - name: BINDPLANE_CONFIG_HOME
+            value: /data
           - name: BINDPLANE_STORE_TYPE
-            value: postgres
-          - name: BINDPLANE_POSTGRES_HOST
-            value: redacted
-          - name: BINDPLANE_POSTGRES_PORT
-            value: "5432"
-          - name: BINDPLANE_POSTGRES_USERNAME
-            value: redacted
-          - name: BINDPLANE_POSTGRES_PASSWORD
-            value: redacted
-          - name: BINDPLANE_POSTGRES_DATABASE
-            value: bindplane
-          - name: BINDPLANE_POSTGRES_MAX_CONNECTIONS
-            value: "20"
+            value: bbolt
           
           - name: BINDPLANE_EVENT_BUS_TYPE
             value: nats
